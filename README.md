@@ -45,11 +45,7 @@ AUTH_CENTERHARCO/
 ├── docs/          # Documentación y guías del proyecto
 ├── docker-compose.yml
 └── README.md
-<<<<<<< HEAD
 ```
-=======
->>>>>>> 2698a030c0942cae3e6287849552fc200ef200a3
-
 ## ✨ Características principales
 
 - 🔐 **Registro, inicio de sesión y autenticación** mediante **JWT**
@@ -75,12 +71,7 @@ AUTH_CENTERHARCO/
 ```bash
 # Construir y levantar todos los servicios (backend, frontend y MongoDB)
 docker-compose up --build
-<<<<<<< HEAD
 ```
-=======
-
->>>>>>> 2698a030c0942cae3e6287849552fc200ef200a3
-Una vez iniciados los contenedores:
 
 - 🌍 **Frontend:** [http://localhost:3000](http://localhost:3000)
 - ⚙️ **Backend:** [http://localhost:4000](http://localhost:4000)

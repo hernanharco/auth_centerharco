@@ -1,111 +1,115 @@
-# 💅 Estilo de Código (ESLint y Prettier)
+# 🎨 Guía de Estilo y Formato
 
-Para garantizar un código limpio, legible y consistente en todo el proyecto, utilizamos una combinación de ESLint para la calidad del código y Prettier para el formato automático.
+Este documento establece las directrices de estilo, formato y organización del código para el proyecto AUTH_CENTERHARCO. El objetivo principal es mantener una **calidad, legibilidad y uniformidad** máxima en toda la base de código.
 
-La configuración de estas herramientas está diseñada para aplicar los estándares de JavaScript/React modernos y para que el equipo dedique menos tiempo a discutir sobre el formato y más tiempo a la lógica de negocio.
+---
 
-## 1. 🧼 Prettier (Formato Consistente)
+## 1. Reglas Generales de Formato
 
-Prettier se utiliza para aplicar un formato de código estricto y automático, eliminando las variaciones estilísticas entre desarrolladores.
+### 1.1. Indentación y Espaciado
 
-### ⚙️ Configuración (Ejemplo: .prettierrc.json)
+* **Indentación:** Usar **2 espacios** para la indentación.
+* **Longitud de Línea:** Máximo de **120 caracteres** (aunque se recomienda mantenerse por debajo de 100).
+* **Espacios en Bloques:** Usar siempre un espacio antes de la llave de apertura:
+    ```typescript
+    // Correcto
+    if (user.isAdmin) { /* ... */ }
 
-Los siguientes son los parámetros clave utilizados en la configuración de Prettier:
+    // Incorrecto
+    if (user.isAdmin){ /* ... */ }
+    ```
 
-{
-  "printWidth": 100,
-  "tabWidth": 2,
-  "useTabs": false,
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "bracketSpacing": true,
-  "jsxBracketSameLine": false,
-  "arrowParens": "always",
-  "endOfLine": "lf"
-}
+### 1.2. Puntuación
 
+* **Punto y Coma (Semicolons):** **Obligatorio** al final de cada declaración.
+* **Coma Final (Trailing Commas):** Se debe usar comas finales en objetos, arrays y parámetros de funciones de varias líneas para facilitar las revisiones de código (git diffs).
+* **Citas (Quotes):** Usar **comillas simples (`'`)** para todas las cadenas de texto, salvo que sea imprescindible el uso de comillas dobles o *template literals*.
 
-Opción
+## 2. Estilo de Código (JavaScript / TypeScript)
 
-Valor
+### 2.1. Declaración de Variables
 
-Descripción
+* **Const vs Let:** Usar **`const`** por defecto. Usar **`let`** solo cuando el valor deba ser reasignado.
+* **Destructuración:** Preferir la destructuración de objetos y arrays al acceder a sus propiedades.
 
-printWidth
+    ```typescript
+    // Correcto
+    const { userId, username } = user;
 
-100
+    // Incorrecto
+    const userId = user.userId;
+    const username = user.username;
+    ```
 
-Limita la longitud de la línea a 100 caracteres para mejorar la legibilidad.
+### 2.2. Funciones
 
-tabWidth
+* **Funciones Flecha:** Usar la sintaxis de función de flecha (`=>`) para callbacks, métodos de clase que necesiten mantener el contexto (`this`), y componentes React.
+* **Retorno Implícito:** Usar el retorno implícito de una sola línea cuando sea apropiado.
 
-## 2 Usa 2 espacios para la indentación.
+    ```typescript
+    // Retorno implícito
+    const getItemId = (item: Item) => item.id;
 
-singleQuote
+    // Retorno explícito para lógica de varias líneas
+    const calculateTotal = (items: Item[]) => {
+      let total = 0;
+      items.forEach(item => total += item.price);
+      return total;
+    };
+    ```
 
-true
+### 2.3. Tipado (TypeScript)
 
-Prefiere el uso de comillas simples (' ') en lugar de comillas dobles.
+* **Tipado Explícito:** Tipar todas las funciones (argumentos y valores de retorno), interfaces, y variables complejas.
+* **Interfaces vs Types:** Usar **Interfaces** para definir la forma de los objetos, clases y props de componentes. Usar **Types** para alias de tipos, uniones o intersecciones.
+* **Evitar `any`:** El uso de `any` está prohibido. Utilizar `unknown` o tipos más específicos cuando sea necesario.
 
-trailingComma
+### 2.4. Módulos e Imports
 
-all
+* **Orden de Imports:** Agrupar y ordenar los *imports* en este orden, separados por una línea en blanco:
+    1.  Módulos de Node.js (e.g., `fs`, `path`).
+    2.  Librerías externas (e.g., `react`, `nest/common`).
+    3.  Módulos y alias internos del proyecto (e.g., `@/components`, `@/lib`).
+    4.  Archivos relativos (e.g., `./`, `../`).
+* **Importación por Defecto vs Nombrada:** Usar la importación por defecto para módulos que exportan un único objeto principal; usar importaciones nombradas para utilidades específicas.
 
-Añade comas finales (trailing commas) en todos los lugares posibles (objetos, arrays, funciones).
+## 3. Estilo Específico de Frontend (React / Next.js)
 
-### 2. 🛡️ ESLint (Calidad del Código)
+### 3.1. Componentes
 
-ESLint se encarga de analizar estáticamente el código para encontrar patrones problemáticos, forzar las convenciones de estilo específicas (ej. nombres de variables) y prevenir errores comunes.
+* **Componentes de Función:** Todos los componentes deben ser funciones de flecha tipadas con `FC` (Function Component) o simplemente el tipo de la función con `Props`.
+* **Props:** Las `props` deben desestructurarse en el argumento de la función.
+* **Condicionales:** Usar operadores ternarios o cortocircuito (`&&`) dentro de JSX para lógica simple. Usar bloques `if`/`else` fuera del `return` para lógica compleja.
 
-⚙️ Reglas Clave (Ejemplo: .eslintrc.json)
+    ```tsx
+    // Correcto - Lógica simple en JSX
+    return (
+      <button>
+        {isLoading ? 'Cargando...' : 'Enviar'}
+      </button>
+    );
 
-La configuración se extiende de los estándares de Airbnb o React recomendados, con ajustes específicos para el proyecto:
+    // Correcto - Lógica compleja fuera del return
+    if (!data) {
+      return <LoadingSpinner />;
+    }
+    return (
+      // ... JSX del componente
+    );
+    ```
 
-eslint-plugin-react: Reglas para asegurar el uso correcto de React y Hooks.
+### 3.2. Estilo (Tailwind CSS)
 
-eslint-plugin-jsx-a11y: Reglas para accesibilidad en elementos JSX.
+* **Clases:** Las clases de Tailwind deben estar definidas directamente en el elemento JSX (`className="..."`).
+* **Ordenamiento:** Utilizar el plugin de ordenamiento de clases de Tailwind (Prettier) para mantener una secuencia lógica y consistente (Ejemplo: `flex` antes de `p-4`).
 
-eslint-config-prettier: Desactiva las reglas de ESLint que entran en conflicto con Prettier.
+## 4. Herramientas de Automatización
 
-Convenciones Obligatorias Reforzadas por ESLint
+Para asegurar el cumplimiento de estas guías, utilizamos:
 
-Convención
+| Herramienta | Propósito | Configuración Clave |
+| :--- | :--- | :--- |
+| **Prettier** | Formato de código automatizado. | 2 espacios, semicolons, trailing commas. |
+| **ESLint** | Análisis estático, detección de errores y problemas de estilo. | Reglas de React Hooks, tipado de TypeScript. |
 
-Descripción
-
-Regla Relacionada
-
-import/order
-
-Los imports deben estar agrupados y ordenados (ej. primero librerías externas, luego rutas internas, luego estilos).
-
-import/order
-
-react-hooks
-
-Se debe seguir la regla de los Hooks (ej. no llamar Hooks de forma condicional).
-
-react-hooks/rules-of-hooks
-
-no-unused-vars
-
-Se prohíbe dejar variables, funciones o imports definidos que no se utilicen.
-
-no-unused-vars
-
-prefer-const
-
-Se prefiere el uso de const sobre let si la variable nunca se reasigna.
-
-prefer-const
-
-## 3. 🚀 Flujo de Trabajo
-
-Se recomienda configurar el entorno de desarrollo (VS Code, WebStorm, etc.) para que ejecute Prettier on Save.
-
-Además, la aplicación del estilo se realiza en dos puntos clave:
-
-Antes del Commit (Hooks de Git): Se utiliza una herramienta como lint-staged y husky para ejecutar ESLint y Prettier solo en los archivos modificados antes de permitir el commit. Esto garantiza que el código que entra al repositorio siempre es válido.
-
-Integración Continua (CI): Las pipelines de CI deben ejecutar la suite completa de ESLint como un paso de verificación obligatorio antes de permitir la fusión a la rama principal (main/master).
+Se espera que todos los desarrolladores ejecuten estas herramientas o configuren su editor para el **formato automático al guardar** (`Format On Save`).

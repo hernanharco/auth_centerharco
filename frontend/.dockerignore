@@ -1,20 +1,20 @@
-# Dependencies
+# .dockerignore (Ubicado en ./frontend)
+
+# 🛑 1. Ignorar el desarrollo local (node_modules, cachés)
+#    Esto es crucial para que el 'docker build' sea rápido.
 node_modules
+.next 
+.turbo
+.pnpm-store
 
-# Build artifacts
-.next
-dist
-build
-
-# Local environment
-.env
+# 🛑 2. Ignorar archivos específicos de desarrollo/local
 .env.local
-*.log
-
-# Git
+.env*.development*
+.env*.test*
 .git
 .gitignore
 
-# Docker
-Dockerfile
-.dockerignore
+# 🛑 3. Ignorar carpetas de prueba, documentación o herramientas locales
+.storybook
+**/__tests__
+**/coverage

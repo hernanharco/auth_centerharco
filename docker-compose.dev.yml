@@ -1,0 +1,64 @@
+# ============================================
+# 🧑‍💻 DOCKER COMPOSE DE DESARROLLO
+# Este archivo se combina con docker-compose.yml
+# para añadir puertos, volúmenes y comandos en vivo.
+# Se usa junto a los Dockerfile.dev
+# ============================================
+
+services:
+  # ============================
+  # BACKEND (NestJS)
+  # ============================
+  backend:
+    build:      
+      dockerfile: Dockerfile.dev   # Usa el Dockerfile de desarrollo
+    ports:
+      - "3000:3000"                # Puerto local → puerto del contenedor
+    volumes:
+      - ./backend:/usr/src/app     # Monta el código local (hot reload)
+      - /usr/src/app/node_modules  # Evita conflictos de dependencias
+    env_file:
+      - ./backend/.env
+    command: pnpm run start:dev    # Comando para modo desarrollo
+    stdin_open: true               # Permite interacción con la terminal
+    tty: true                      # Mantiene sesión activa para logs
+    environment:
+      - NODE_ENV=development
+
+  # ============================
+  # FRONTEND (Vite / Next.js)
+  # ============================
+  frontend:
+    build:      
+      dockerfile: Dockerfile.dev   # Usa Dockerfile del frontend               
+    ports:
+      - "9002:9002"  # Puerto Next.js
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next 
+      # Agrega la caché de pnpm
+      - pnpm_store:/root/.local/share/pnpm/store # Montar el store
+    command: pnpm dev
+    environment:
+      - NODE_ENV=development
+    
+
+  # ============================
+  # DOCS (modo local)
+  # ============================
+  docs:
+    ports:
+      - "7174:80"                  # Exponemos para ver la documentación localmente
+
+  # ============================
+  # STORYBOOK (modo local)
+  # ============================
+  storybook:
+    build:      
+      dockerfile: Dockerfile.dev   # Usa Dockerfiledev
+    ports:
+      - "6007:80"                  # Puerto para ver Storybook en desarrollo    
+    command: pnpm run storybook
+      
+    

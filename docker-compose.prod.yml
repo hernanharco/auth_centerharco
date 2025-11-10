@@ -1,0 +1,41 @@
+# ============================================
+# 🚀 DOCKER COMPOSE DE PRODUCCIÓN
+# Este archivo se combina con docker-compose.yml
+# para definir puertos y comandos de arranque optimizados.
+# Usa los Dockerfile normales (Dockerfile)
+# ============================================
+
+services:
+  # ============================
+  # BACKEND (NestJS)
+  # ============================
+  backend:
+    build:
+        dockerfile: Dockerfile   # Usa el Dockerfile de Produccion
+    ports:
+      - "8000:3000"             # Expone el backend en el puerto 8000
+    command: pnpm run start:prod  # Modo producción
+
+  # ============================
+  # FRONTEND (Vite / Next.js)
+  # ============================
+  frontend:
+    build:
+      dockerfile: Dockerfile   # Usa Dockerfile del frontend
+    ports:
+      - "8080:9002"             # Expone el frontend en el puerto 8080
+    command: pnpm start         # Sirve los archivos ya compilados
+
+  # ============================
+  # DOCS (VitePress)
+  # ============================
+  docs:
+    ports:
+      - "8081:80"               # Expone documentación en puerto 8081
+
+  # ============================
+  # STORYBOOK
+  # ============================
+  storybook:
+    ports:
+      - "6007:80"               # Expone Storybook en puerto 8082

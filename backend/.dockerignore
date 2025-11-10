@@ -1,0 +1,28 @@
+Ignorar dependencias de Node.js instaladas localmente
+
+node_modules
+
+Ignorar artefactos de compilación (como la carpeta 'dist')
+
+dist
+build
+
+Ignorar archivos temporales
+
+tmp
+.tmp
+.log
+npm-debug.log
+yarn-error.log
+
+Ignorar archivos de configuración de entorno
+
+.env
+.env.*
+
+Ignorar control de versiones y archivos de IDE
+
+.git
+.gitignore
+.vscode
+.idea

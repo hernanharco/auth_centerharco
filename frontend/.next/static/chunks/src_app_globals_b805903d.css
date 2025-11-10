@@ -1184,16 +1184,6 @@ body {
   background-color: #0000;
 }
 
-.bg-\[\#1D4ED8\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
-}
-
-.bg-gray-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
-}
-
 .fill-current {
   fill: currentColor;
 }

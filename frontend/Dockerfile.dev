@@ -1,0 +1,29 @@
+# ===============================
+# 🧑‍💻 ETAPA ÚNICA: DESARROLLO
+# ===============================
+FROM node:20-slim
+
+# 1. Instalar pnpm globalmente
+RUN npm install -g pnpm
+
+# 2. Directorio de trabajo
+WORKDIR /app
+
+# 3. Copiar solo los archivos de dependencias
+COPY package.json pnpm-lock.yaml ./
+
+# 4. Descargar dependencias al caché de pnpm (sin instalarlas todavía)
+RUN pnpm fetch
+
+# 5. Instalar dependencias desde el caché (mucho más rápido)
+RUN pnpm install --offline
+
+# 6. Copiar el resto del código solo si lo vas a usar en producción.
+#    En desarrollo, normalmente se monta con volumes en docker-compose.
+# COPY . .
+
+# 7. Exponer el puerto (por ejemplo, si usas Next.js o Vite)
+EXPOSE 9002
+
+# 8. Comando por defecto
+CMD ["pnpm", "dev"]

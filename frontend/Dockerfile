@@ -1,29 +1,34 @@
-# ==== Base Stage ====
-FROM node:20-alpine AS base
+#Dockerfile
+# =====================================
+# 🏗️ ETAPA 1: BUILD (compila el frontend)
+# =====================================
+FROM node:20 AS builder
 WORKDIR /app
+RUN corepack enable
 
-# ==== Dependencies Stage ====
-FROM base AS deps
-COPY package.json ./
-RUN npm install
+# Copiamos archivos de dependencias e instalamos
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-# ==== Builder Stage ====
-FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
+# Copiamos el código fuente y construimos el proyecto
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
-# ==== Runner Stage ====
-FROM base AS runner
+
+# =====================================
+# 🚀 ETAPA 2: PRODUCCIÓN (solo lo necesario)
+# =====================================
+FROM node:20-alpine AS runner
 WORKDIR /app
-
 ENV NODE_ENV=production
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+# Copiamos solo el resultado de la build y dependencias necesarias
+COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
+RUN pnpm install --prod --frozen-lockfile
 
+# Exponemos el puerto donde servirá el frontend
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Comando de inicio
+CMD ["pnpm", "start"]

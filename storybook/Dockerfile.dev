@@ -1,0 +1,28 @@
+# STAGE: Development
+# Propósito: Crear un entorno para ejecutar 'pnpm run storybook' con HMR.
+FROM node:20-slim
+
+# Directorio de trabajo
+# Esperamos que el código fuente local se monte aquí.
+WORKDIR /app
+
+# Habilitar Corepack para pnpm
+RUN corepack enable
+
+# 1. Copiamos solo los archivos de dependencias
+# Esto es vital para aprovechar la caché de Docker y solo reconstruir 
+# si el lockfile cambia.
+COPY package.json pnpm-lock.yaml ./
+
+# 2. Instalamos dependencias.
+# No es necesario copiar el código fuente aquí, ya que se montará
+# como volumen en el paso docker compose up.
+RUN pnpm install --frozen-lockfile
+
+# El puerto estándar de Storybook
+EXPOSE 80
+
+# Comando de inicio: Ejecuta el servidor de desarrollo de Storybook
+# NOTA: Debes ejecutar esto a través de Docker Compose con un volumen montado:
+# -v $(pwd):/app
+CMD ["pnpm", "run", "storybook"]

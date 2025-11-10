@@ -235,7 +235,7 @@ docs/_build/
 !**/vite.config.ts
 !**/tsconfig.json
 !**/index.html
-!docker-compose.yml
+!docker-compose*.yml
 *storybook.log
 storybook-static
 

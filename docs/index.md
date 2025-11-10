@@ -1,8 +1,8 @@
 📚 Manual de Arquitectura y Buenas Prácticas
 
-¡Bienvenido al manual de arquitectura del proyecto Portafolio de Hernán Harco!
+¡Bienvenido al manual de arquitectura del proyecto Autenciacion para Usuarios!
 
-Este documento es la guía oficial para entender la estructura, los patrones de diseño, y las convenciones de código utilizadas en el frontend (React + Vite) y el backend (Django/Python).
+Este documento es la guía oficial para entender la estructura, los patrones de diseño, y las convenciones de código utilizadas en el frontend (next) y el backend (nest.js).
 
 🚀 Empezar
 
@@ -17,15 +17,15 @@ docker compose up -d
 Servicios Clave:
 | Servicio | Puerto Local | Propósito |
 | :--- | :--- | :--- |
-| Aplicación Principal (Frontend) | http://localhost:5175/ | Vista del usuario final. |
-| Manual Interactivo (Storybook) | http://localhost:7007/ | Documentación visual de componentes. |
-| Manual Conceptual (VitePress) | http://localhost:7173/ | Guía de arquitectura (este sitio). |
+| Aplicación Principal (Frontend) | http://localhost:5176/ | Vista del usuario final. |
+| Manual Interactivo (Storybook) | http://localhost:6007/ | Documentación visual de componentes. |
+| Manual Conceptual (VitePress) | http://localhost:7174/ | Guía de arquitectura (este sitio). |
 
 💡 Principios Fundamentales
 
 Este proyecto está construido bajo tres pilares de desarrollo:
 
-Modularidad de Dominio: Los componentes se agrupan por la característica que representan (ej: hero, contact), no por su tipo (atoms, molecules).
+Modularidad de Dominio: Los componentes se agrupan por la característica .
 
 Separación de Responsabilidades (SoC): El acceso a datos se aísla en el patrón DAO, y la lógica de estado se aísla en Custom Hooks.
 

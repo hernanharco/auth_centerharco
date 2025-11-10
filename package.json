@@ -1,0 +1,19 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
+    "dev:build": "docker compose -f docker-compose.yml -f docker-compose.dev.yml build",
+    "dev-nocache": "docker compose -f docker-compose.yml -f docker-compose.dev.yml build --no-cache frontend && docker compose -f docker-compose.yml -f docker-compose.dev.yml up",
+    "prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
+    "down": "docker compose down",
+    "up": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up",
+    "down:volu": "docker compose down --volumes",
+    "clean": "docker compose down -v --remove-orphans",
+    "logs": "docker compose logs -f",
+    "ps": "docker compose ps",
+    "shell-backend": "docker compose exec backend sh",
+    "shell-frontend": "docker compose exec frontend sh",
+    "prune": "docker system prune -f"
+  }
+}

@@ -3,5 +3,5 @@
   "sources": [],
   "sections": [
     {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///D:/PC/Documents/Proyectos/auth_centerharco/src/app/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation'\r\n\r\nexport default function HomePage() {\r\n  redirect('/login')\r\n}\r\n"],"names":[],"mappings":";;;AAAA;AAAA;;AAEe,SAAS;IACtB,CAAA,GAAA,8RAAA,CAAA,WAAQ,AAAD,EAAE;AACX","debugId":null}}]
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///app/src/app/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation'\r\n\r\nexport default function HomePage() {\r\n  redirect('/login')\r\n}\r\n"],"names":[],"mappings":";;;AAAA;AAAA;;AAEe,SAAS;IACtB,CAAA,GAAA,8XAAA,CAAA,WAAQ,AAAD,EAAE;AACX","debugId":null}}]
 }

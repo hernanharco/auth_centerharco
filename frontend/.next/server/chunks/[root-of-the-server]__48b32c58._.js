@@ -62,7 +62,7 @@ __turbopack_context__.s({
     "GET": (()=>GET),
     "dynamic": (()=>dynamic)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$3_$40$opentelemetry$2b$_2cdcc2f52365088d3f8f3e2f335a2073$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/.pnpm/next@15.3.3_@opentelemetry+_2cdcc2f52365088d3f8f3e2f335a2073/node_modules/next/server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$3_$40$babel$2b$core$40$7$2e$2_b551e27a72ae496ef7ef7facc30d089b$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/.pnpm/next@15.3.3_@babel+core@7.2_b551e27a72ae496ef7ef7facc30d089b/node_modules/next/server.js [app-rsc] (ecmascript)");
 ;
 const contentType = "image/x-icon";
 const cacheControl = "public, max-age=0, must-revalidate";
@@ -71,7 +71,7 @@ if ("TURBOPACK compile-time falsy", 0) {
     "TURBOPACK unreachable";
 }
 function GET() {
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$3_$40$opentelemetry$2b$_2cdcc2f52365088d3f8f3e2f335a2073$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["NextResponse"](buffer, {
+    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$3_$40$babel$2b$core$40$7$2e$2_b551e27a72ae496ef7ef7facc30d089b$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["NextResponse"](buffer, {
         headers: {
             'Content-Type': contentType,
             'Cache-Control': cacheControl

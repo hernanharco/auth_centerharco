@@ -1,87 +1,76 @@
-# 🏷️ Convenciones de Nomenclatura (Naming)
-La consistencia en la nomenclatura es vital para la legibilidad y el mantenimiento del código. Estas convenciones se aplican a todas las carpetas, archivos, componentes y variables del proyecto, especialmente en la capa de frontend.
+# 🏷️ Convenciones de Nomenclatura
 
-```text
-## 🏷️ Convenciones de Nomenclatura (Naming)
-
-La consistencia en la nomenclatura es vital para la legibilidad y el mantenimiento del código. Estas convenciones se aplican a todas las carpetas, archivos, componentes y variables del proyecto, especialmente en la capa de *frontend*.
+Las convenciones de nomenclatura son cruciales para mantener la **legibilidad, consistencia** y **escalabilidad** del código. Este documento establece las reglas a seguir en todo el proyecto AUTH_CENTERHARCO.
 
 ---
 
-### 1. Reglas Generales de Casing
+## 1. Reglas Generales
 
-| Elemento | Casing Utilizado | Ejemplo |
+* **Inglés:** Todos los nombres (variables, funciones, archivos, etc.) deben estar en inglés.
+* **Claridad:** Los nombres deben ser descriptivos y reflejar claramente su propósito o el valor que contienen. Evita abreviaturas ambiguas.
+* **Consistencia:** Una vez que se elige un estilo (por ejemplo, CamelCase para variables), debe aplicarse de manera uniforme.
+
+## 2. Tipos de Nomenclatura
+
+Utilizamos principalmente tres estilos: **PascalCase**, **camelCase** y **kebab-case**.
+
+### 2.1. `PascalCase` (UpperCamelCase)
+
+Se utiliza para entidades que representan **Clases**, **Componentes** y **Tipos/Interfaces**.
+
+| Elemento | Convención | Ejemplo |
 | :--- | :--- | :--- |
-| **Componentes / Tipos** | `PascalCase` | `Hero`, `UserProfile`, `interface User` |
-| **Archivos / Módulos de Lógica** | `camelCase` o `PascalCase` (Ver abajo) | `useDataFetcher.js`, `HeroDAO.js` |
-| **Funciones / Variables** | `camelCase` | `fetchData`, `isUserLoggedIn` |
-| **Constantes Globales** | `SCREAMING_SNAKE_CASE` | `API_BASE_URL`, `MAX_ITEM_COUNT` |
+| **Clases** (Backend) | PascalCase | `UserService`, `AuthModule` |
+| **Componentes** (Frontend) | PascalCase | `LoginButton`, `UserProfile` |
+| **Interfaces/Tipos** | PascalCase | `UserPayload`, `AppError` |
 
----
+### 2.2. `camelCase` (lowerCamelCase)
 
-### 2. Nomenclatura Específica de Archivos y Carpetas
+Se utiliza para la mayoría de las entidades de código que no son clases.
 
-#### Componentes de React (`.jsx` o `.tsx`)
-
-* **Regla:** Utilizar `PascalCase`. El nombre del archivo debe coincidir con el nombre de la *exportación principal* del componente.
-* **Ejemplos:**
-    * `Hero.jsx`
-    * `ButtonPrimary.jsx`
-
-#### Custom Hooks (`.js` o `.jsx`)
-
-* **Regla:** **Obligatoriamente** deben comenzar con el prefijo `use` y utilizar `camelCase`.
-* **Ejemplos:**
-    * `useHero.js`
-    * `useFormValidation.js`
-
-#### Servicios y DAOs
-
-* **Regla:** Utilizar `PascalCase` y terminar el nombre con su rol.
-* **Ejemplos:**
-    * `HeroDAO.js`
-    * `LoggerService.js`
-
-#### Carpetas de Módulos por Característica
-
-* **Regla:** Utilizar `PascalCase` para el directorio principal de la característica. Los subdirectorios internos (como `components`, `hooks`, `service`) se mantienen en minúsculas.
-* **Estructura Ejemplo:**
-    ```
-    /Hero
-    ├── components/
-    ├── hooks/
-    └── service/
-    ```
-
----
-
-### 3. Funciones y Variables
-
-| Tipo | Regla | Ejemplo |
+| Elemento | Convención | Ejemplo |
 | :--- | :--- | :--- |
-| **Funciones de Manejo de Eventos** | Prefijo `handle` + Evento + Elemento (opcional), usando `camelCase`. | `handleClick`, `handleFormSubmit`, `handleInputChange` |
-| **Variables Booleanas** | Prefijo `is`, `has`, `can` o `should`. | `isLoading`, `hasPermission`, `isModalOpen` |
-| **Variables de Estado de React** | La función *setter* debe ser `set` + Nombre del Estado. | `const [count, setCount] = useState(0)` |
+| **Variables** | camelCase | `userProfile`, `isLoading` |
+| **Funciones/Métodos** | camelCase | `createUser`, `handleLoginSubmit` |
+| **Constantes (locales)** | camelCase | `defaultAvatarUrl` |
+| **Parámetros de función** | camelCase | `(userId: number, newName: string)` |
 
----
+### 2.3. `SCREAMING_SNAKE_CASE`
 
-### 4. `docs/guide/structure.md`
+Se utiliza exclusivamente para **Constantes Globales** o valores de configuración inmutables.
 
-```markdown
-# Estructura de Directorios: Por Característica
+| Elemento | Convención | Ejemplo |
+| :--- | :--- | :--- |
+| **Variables de Entorno** | SCREAMING_SNAKE_CASE | `API_SECRET_KEY`, `DB_HOST` |
+| **Constantes (Globales)** | SCREAMING_SNAKE_CASE | `MAX_FILE_SIZE`, `DEFAULT_TIMEOUT` |
 
-Todos los archivos relacionados con una característica (ejemplo: Hero) se agrupan en una sola carpeta bajo `src/components/`.
+### 2.4. `kebab-case`
 
-```text
-src/
-└── components/
-    └── hero/
-        ├── components/
-        │   └── Hero.jsx         <- Componente de Presentación (Vista)
-        ├── hooks/
-        │   └── useHero.jsx      <- Lógica de Estado (Model/Controller)
-        └── service/
-            └── HeroDAO.js       <- Acceso a Datos (DAO)
-```
+Se utiliza para la nomenclatura de archivos y carpetas que contienen código o componentes, especialmente en el frontend (Next.js/VitePress).
 
+| Elemento | Convención | Ejemplo |
+| :--- | :--- | :--- |
+| **Archivos de Markdown** | kebab-case | `naming.md`, `introduction.md` |
+| **Carpetas de Módulos/Rutas** | kebab-case | `user-management/`, `auth/` |
+| **Archivos de Configuración** | kebab-case | `docker-compose.yaml` |
 
+## 3. Nomenclatura Específica de Archivos
+
+### Backend (`backend/src`)
+
+* **Módulos (NestJS):** `auth.module.ts`
+* **Servicios:** `users.service.ts`
+* **Controladores:** `auth.controller.ts`
+* **Entidades:** `user.entity.ts`
+* **DTOs:** `create-user.dto.ts` (Se permite el `kebab-case` para DTOs complejos para mayor claridad)
+
+### Frontend (`frontend/src`)
+
+* **Archivos de Rutas (Next.js):**
+    * Archivos de página principal: `page.tsx`
+    * Archivos de layout: `layout.tsx`
+* **Componentes Reutilizables:** Siempre con `PascalCase`.
+    * Carpeta: `components/`
+    * Archivo: `Button.tsx`, `Modal.tsx`
+* **Hooks:** Prefijo `use` + `PascalCase`.
+    * Archivo: `hooks/useAuth.ts`

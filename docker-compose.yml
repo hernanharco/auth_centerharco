@@ -1,88 +1,65 @@
+# ============================================
+# 🧱 DOCKER COMPOSE BASE
+# Este archivo define los servicios comunes
+# (backend, frontend, docs, storybook)
+# pero sin detalles de entorno (ni puertos, ni volúmenes).
+# Luego se combina con:
+#   - docker-compose.dev.yml → para desarrollo
+#   - docker-compose.prod.yml → para producción
+# ============================================
+
 services:
-  # ----------------------------------------------------
-  # SERVICIO 1: APLICACIÓN BACKEND (Conexion con XATA & DJANGO)
-  # ----------------------------------------------------
-  backend:
+  # ============================
+  # 🚀 BACKEND (NestJS)
+  # ============================
+  backend:    
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./backend # Carpeta donde está el código del backend
+      # No se especifica Dockerfile → usa "Dockerfile" por defecto
     container_name: backend_auth
-    ports:
-      - "8001:8000"
     env_file:
-      - ./backend/.env
-    volumes:
-      - ./backend:/usr/src/app
-    working_dir: /usr/src/app
-    command: python manage.py runserver 0.0.0.0:8000
-    depends_on:
-      - mongo
-    restart: unless-stopped
-  # ----------------------------------------------------
-  # SERVICIO 2: APLICACIÓN PRINCIPAL (Modo Desarrollo/Vite)
-  # ----------------------------------------------------
-  frontend:
+      - ./backend/.env # Variables de entorno
+    working_dir: /usr/src/app # Directorio de trabajo dentro del contenedor
+    restart: unless-stopped # Reinicia si el contenedor se detiene inesperadamente
+
+  # ============================
+  # 💻 FRONTEND (Vite / Next.js)
+  # ============================
+  frontend:    
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      # Por defecto usa Dockerfile (producción)
     container_name: frontend_auth
-    ports:
-      - "5175:5173"
     environment:
-      - VITE_API_URL=http://backend:8000
-    stdin_open: true
-    tty: true
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
-    working_dir: /app
-    command: pnpm dev --host 0.0.0.0
+      - VITE_API_URL=http://backend:3000 # Desde navegador hacia host    
     restart: unless-stopped
 
-  # ----------------------------------------------------
-  # SERVICIO 3: docs con vitepress (Modo Estático/Producción con Nginx)
-  # ----------------------------------------------------
+  # ============================
+  # 📘 DOCUMENTACIÓN (VitePress)
+  # ============================
   docs:
     build:
       context: ./docs
-      dockerfile: Dockerfile.doc
     container_name: docs_auth
-    ports:
-      - "7173:80"     
-    restart: always
+    restart: always # Reinicia siempre (servicio estable)
 
-  # ----------------------------------------------------
-  # SERVICIO 4: STORYBOOK (Modo Estático/Producción con Nginx)
-  # ----------------------------------------------------
+  # ============================
+  # 🧩 STORYBOOK (componentes UI)
+  # ============================
   storybook:
-    # Le indicamos que use el Dockerfile que construye y sirve Storybook estático
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.storybook
+      context: ./storybook 
     container_name: storybook_auth
-    # Mapeamos el puerto 6006 para acceder a Storybook
-    ports:
-      - "6006:80" # Mapea el puerto 6006 del host al puerto 80 del contenedor Nginx
-
-    # No necesita volúmenes de código fuente, solo se sirve el build.
-    restart: always
-
-# ----------------------------------------------------
-# SERVICIO 5: BASE DE DATOS MONGODB
-# ----------------------------------------------------
-mongo:
-  image: mongo:latest # Imagen oficial de MongoDB
-  container_name: mongodb_auth
-  ports:
-    - "27017:27017" # Puerto estándar de MongoDB
-  environment:
-    # Define las variables de entorno para autenticación/configuración si es necesario
-    - MONGO_INITDB_DATABASE=authDB
-  volumes:
-    - mongo-data:/data/db # Persistencia de datos
-  restart: unless-stopped
-
-volumes:
-  mongo-data:
+    volumes:
+      - ./storybook:/app       # monta toda la carpeta del proyecto Storybook
+      - ./frontend:/app/frontend        # monta el código del frontend
+      - /app/node_modules      # evita conflictos de dependencias
+    environment:
+      - NODE_ENV=development
+    restart: always      
+  # ============================================
+# 🧱 VOLUMENES DE NIVEL SUPERIOR
+# ============================================
+volumes: 
+  pnpm_store:
+    driver: local

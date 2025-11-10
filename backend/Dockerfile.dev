@@ -1,0 +1,22 @@
+# =====================================
+# 🧑‍💻 ETAPA ÚNICA: DESARROLLO
+# =====================================
+FROM node:20-slim
+
+# Habilitamos pnpm
+RUN corepack enable
+
+# Creamos el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
+
+# Copiamos los archivos de dependencias
+COPY package*.json pnpm-lock.yaml ./
+
+# Instalamos TODAS las dependencias (incluyendo las de desarrollo)
+RUN pnpm install
+
+# Exponemos el puerto por el que NestJS servirá la app
+EXPOSE 3000
+
+# Comando de ejecución (modo watch / hot reload)
+CMD ["pnpm", "run", "start:dev"]

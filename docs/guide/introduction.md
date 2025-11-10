@@ -1,37 +1,42 @@
-# 👋 Introducción a la Documentación del Portafolio
+# 👋 Introducción al Proyecto AUTH_CENTERHARCO
 
-¡Bienvenido/a a la documentación interna y técnica del proyecto **Portfolio Hernán Harco**!
+¡Bienvenido/a a la documentación de AUTH_CENTERHARCO!
 
-Este espacio está diseñado para servir como referencia central para el desarrollo, mantenimiento y comprensión de la arquitectura de todo el proyecto.
-
-## 🎯 Objetivo de esta Documentación
-
-El propósito principal de esta guía es:
-
-* **Claridad Arquitectónica:** Entender cómo se relacionan el `frontend`, el `backend` y el sistema de `Docker Compose`.
-* **Consistencia en el Código:** Establecer y documentar las convenciones de nombramiento y los patrones de diseño utilizados.
-* **Facilitar el Onboarding:** Permitir que cualquier desarrollador (incluyéndote a ti en el futuro) pueda integrarse rápidamente al proyecto y contribuir de manera efectiva.
-
-## 🏗️ Estructura de la Documentación
-
-La documentación se divide en las siguientes secciones principales para guiarte a través de los aspectos cruciales del proyecto.
-
-| Sección | Descripción | Contenido Clave |
-| :--- | :--- | :--- |
-| **Guía General** | Información sobre la estructura general del repositorio. | `structure.md` |
-| **Convenciones** | Normas y directrices para mantener la consistencia en el código. | `naming.md` |
-| **Patrones** | Explicación detallada de los patrones de código reutilizados. | `custom-hooks.md`, `dao.md` |
+Este proyecto es el **Sistema Central de Autenticación y Autorización** (Authentication and Authorization Center) de nuestra plataforma. Su objetivo principal es proveer una capa de seguridad unificada, robusta y escalable para todos los servicios internos y externos que requieran identificación de usuarios.
 
 ---
 
-## 🚀 Cómo Empezar
+## 🎯 Objetivo del Proyecto
 
-Para explorar un tema específico, utiliza la barra lateral de navegación a tu izquierda.
+AUTH_CENTERHARCO fue diseñado para cumplir los siguientes propósitos fundamentales:
 
-1.  **¿Eres nuevo/a en el código?** Empieza por la sección de **Guía General** para entender la disposición de las carpetas.
-2.  **¿Vas a escribir código nuevo?** Consulta la sección de **Convenciones** para asegurar que tu código sigue los estándares.
-3.  **¿Buscas cómo manejar la lógica de datos?** Revisa los **Patrones de Diseño** para el patrón DAO.
+* **Identificación Centralizada:** Gestionar de manera segura las credenciales de los usuarios.
+* **Autorización Uniforme:** Proveer servicios de verificación de roles y permisos a otros microservicios.
+* **Escalabilidad:** Implementado con una arquitectura desacoplada (Backend/Frontend) para soportar el crecimiento de la plataforma.
+* **Experiencia de Usuario:** Ofrecer una interfaz de inicio de sesión y registro limpia y eficiente.
 
----
+## 🛠️ Tecnologías Clave
 
-¡Gracias por leer y contribuir a mantener este proyecto organizado!
+El proyecto está construido con un stack moderno y enfocado en la productividad:
+
+### ⚙️ Backend (Microservicio de Autenticación)
+* **Framework:** NestJS (Node.js)
+* **Lenguaje:** TypeScript
+* **Gestor de Paquetes:** pnpm
+* **Contenerización:** Docker
+
+### 💻 Frontend (Aplicación de Identidad)
+* **Framework:** Next.js (React)
+* **Lenguaje:** TypeScript
+* **Estilos:** Tailwind CSS
+* **Gestor de Paquetes:** pnpm
+
+## 📖 Estructura de la Documentación
+
+Esta documentación está organizada para ayudarte a encontrar rápidamente lo que necesitas:
+
+1.  **Guía del Proyecto:** Cubre la visión general y la estructura de directorios.
+2.  **Convenciones:** Detalla las reglas de estilo y nomenclatura del código.
+3.  **Patrones:** Documenta soluciones comunes y mejores prácticas de la arquitectura (si la carpeta `patterns` está implementada).
+
+**Próximo Paso:** Revisa la [Estructura del Proyecto](./structure.md) para familiarizarte con la disposición del código.
